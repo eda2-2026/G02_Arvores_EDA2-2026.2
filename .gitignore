@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+venv/
+.venv/
+env/
+assets/ultimos_resultados.json
