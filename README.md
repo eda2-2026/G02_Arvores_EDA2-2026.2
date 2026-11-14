@@ -54,8 +54,17 @@ sistema em que o seu tipo de balanceamento rende mais. A contribuição é:
 
 ## 3. O que o software faz
 
-O `main.py` tem um menu interativo e uma demonstração roteirizada
-(`--demo`). As operações:
+O sistema tem três formas de uso: a **interface gráfica** (`interface.py`,
+em Tkinter), o menu de terminal (`main.py`) e uma demonstração
+roteirizada (`main.py --demo`). A interface tem duas abas: **Estoque**,
+com produtos, lotes do produto selecionado (vencidos em vermelho, os que
+vencem em até 30 dias em amarelo), operações e relatório de vencimento; e
+**Árvores**, que desenha a AVL e a Rubro-Negra a partir da estrutura real
+e é atualizada a cada operação. Um painel mostra a altura e os contadores
+de rotações e recolorações, e o registro de operações informa quantas
+rotações cada operação causou.
+
+As operações:
 
 | Operação | Estrutura usada | Custo |
 |---|---|---|
@@ -282,6 +291,7 @@ tests/
 ├── test_rubro_negra.py   Rubro-Negra x força bruta + as 4 regras
 └── test_estoque.py       regras do negócio (FEFO, vencidos, recall)
 
+interface.py          interface gráfica (Tkinter): estoque + desenho das árvores
 main.py               menu interativo e demonstração (--demo)
 comparacao.py         benchmark: BST x AVL x Rubro-Negra nas duas cargas
 plot_results.py       gera os gráficos a partir do benchmark
@@ -296,6 +306,7 @@ externa.
 ```bash
 pip install matplotlib
 
+python interface.py       # interface gráfica (Tkinter já vem com o Python)
 python main.py --demo      # demonstração de todas as operações
 python main.py             # menu interativo (opção D carrega uma base de exemplo)
 
