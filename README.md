@@ -64,6 +64,17 @@ e é atualizada a cada operação. Um painel mostra a altura e os contadores
 de rotações e recolorações, e o registro de operações informa quantas
 rotações cada operação causou.
 
+![Interface — aba Estoque](assets/interface_estoque.png)
+
+*Aba Estoque: o Ibuprofeno tem um lote vencido (em vermelho). A venda FEFO
+de 15 unidades pulou esse lote e saiu do próximo a vencer. Embaixo, os lotes
+que vencem em até 30 dias, de todos os produtos, já em ordem de validade.*
+
+![Interface — aba Árvores](assets/interface_arvores.png)
+
+*Aba Árvores: a AVL do cadastro (16 produtos, altura 5) e a Rubro-Negra
+global dos lotes (44 lotes, altura 7), desenhadas a partir dos nós reais.*
+
 As operações:
 
 | Operação | Estrutura usada | Custo |
@@ -82,10 +93,31 @@ resposta e `m_p` o número de lotes de um produto.
 
 As estruturas se ligam assim:
 
-```text
-produtos (AVL)              código -> Produto
-   └── Produto.lotes (Rubro-Negra)    lotes DESTE produto por (validade, lote)  -> venda FEFO
-vencimentos (Rubro-Negra)    lotes de TODOS os produtos por (validade, lote)  -> relatórios e descarte
+```mermaid
+flowchart LR
+    subgraph leitura["Carga de leitura"]
+        AVL[("AVL<br/>produtos por código")]
+    end
+    subgraph escrita["Carga de escrita"]
+        RNP[("Rubro-Negra do produto<br/>lotes por (validade, lote)")]
+        RNG[("Rubro-Negra global<br/>lotes de todos os produtos")]
+    end
+
+    BUSCA["Busca / consulta de preço"] -->|"código"| AVL
+    VENDA["Venda FEFO"] -->|"código"| AVL
+    AVL -->|"Produto.lotes"| RNP
+    RNP -->|"menor validade<br/>não vencida"| VENDA
+    RECEB["Recebimento de lote"] --> RNP
+    RECEB --> RNG
+    RNG -->|"intervalo(hoje, hoje + X)"| REL["Relatório: vence em X dias"]
+    RNG -->|"remove o mínimo<br/>enquanto vencido"| DESC["Descarte de vencidos"]
+    RECALL["Recall de um lote"] --> RNP
+    RECALL --> RNG
+
+    classDef avl fill:#2a78d6,stroke:#2a78d6,color:#fff
+    classDef rn fill:#eb6834,stroke:#eb6834,color:#fff
+    class AVL avl
+    class RNP,RNG rn
 ```
 
 Cada lote fica em duas rubro-negras: a do produto e a global. Toda entrada
@@ -295,7 +327,7 @@ interface.py          interface gráfica (Tkinter): estoque + desenho das árvor
 main.py               menu interativo e demonstração (--demo)
 comparacao.py         benchmark: BST x AVL x Rubro-Negra nas duas cargas
 plot_results.py       gera os gráficos a partir do benchmark
-assets/               gráficos e JSON da última execução
+assets/               gráficos do benchmark e capturas da interface
 ```
 
 ## 8. Como executar
