@@ -5,9 +5,7 @@
 **Trabalho:** T3 — Árvores de Busca
 **Dupla:** João Pedro Araújo de Freitas Lyra (232003661) e Rivadalvio Joaquim da Silva Filho (232024026)
 
-**Vídeo de apresentação:** [youtu.be/ID_DO_VIDEO](https://www.youtube.com/watch?v=ID_DO_VIDEO)
-
-[![Assistir à apresentação](https://img.youtube.com/vi/ID_DO_VIDEO/hqdefault.jpg)](https://www.youtube.com/watch?v=ID_DO_VIDEO)
+**Vídeo de apresentação:** [https://youtu.be/9mWlSxAjTeI](https://youtu.be/9mWlSxAjTeI)
 
 ---
 
@@ -127,8 +125,6 @@ dia, e a ordem da tupla já é a ordem FEFO.
 
 ### 4.1 Árvore AVL — cadastro de produtos
 
-*(Rivadalvio)*
-
 A AVL é uma árvore binária de busca em que, para **todo** nó, a diferença
 de altura entre as subárvores esquerda e direita (o fator de
 balanceamento) é −1, 0 ou +1. Disso sai altura ≤ ~1,44 log₂(n + 2): é a
@@ -153,8 +149,6 @@ rígido, e é por isso que a AVL ficou no cadastro, onde quase não há
 remoções.
 
 ### 4.2 Árvore Rubro-Negra — lotes por validade
-
-*(João Pedro)*
 
 A rubro-negra pinta cada nó de vermelho ou preto e mantém quatro regras:
 
